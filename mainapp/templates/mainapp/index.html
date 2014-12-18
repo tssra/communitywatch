@@ -49,13 +49,17 @@
 	            mapOptions);
 
 	        // Insert it inside a for each loop 
-	        var marker = new google.maps.Marker({
+	    {% for s in stories %}
+	        var marker{{for_loop.counter}} = new google.maps.Marker({
 	        	icon: redimg,
 			    position: new google.maps.LatLng(27.7,85.33333330000005),
 			    map: map,
 			    title:"Hello World!"
 			});
-			marker.setMap(map);
+			marker{{for_loop.counter}}.setMap(map);
+
+        {% endfor %}
+
 			//Upto here
 
 	      }

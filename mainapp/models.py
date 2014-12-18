@@ -7,7 +7,8 @@ class Story(models.Model):
     user = models.ForeignKey(User)
     sector = models.CharField(max_length=50)
     status = models.CharField(max_length=50)
-    location = models.CharField(max_length=50)
+    latitude = models.DecimalField(max_digits=19, decimal_places=10)
+    longitude = models.DecimalField(max_digits=19, decimal_places=10)
     senti = models.IntegerField() #average sentiment value of comments
     created_at = models.DateTimeField(auto_now_add=True)
 
