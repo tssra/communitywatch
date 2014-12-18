@@ -8,6 +8,11 @@ scores = {}
 def index(request):
 	return render(request,'mainapp/base.html',)
 
+def show_story(request):
+	return render(request,'mainapp/story.html',)
+
+
+
 def calcScore(text):
 	tot = 0
 	words = text.split(" ")
