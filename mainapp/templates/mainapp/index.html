@@ -42,7 +42,7 @@
 		    //Initial map settings 
 	        var mapOptions = {
 	          center: new google.maps.LatLng(27.7,85.33333330000005),
-	          zoom: 10
+	          zoom: 8
 	        };
 	        
 	        var map = new google.maps.Map(document.getElementById('map-canvas'),
@@ -59,7 +59,12 @@
 				    map: map,
 				    title:"Hello World!"
 				});
+
 				marker{{for_loop.counter}}.setMap(map);
+
+				google.maps.event.addListener(marker{{for_loop.counter}}, 'click', function() {
+					window.open("{% url 'story' s.id %}","_self");
+				})
 
 	        {% endfor %}
 
