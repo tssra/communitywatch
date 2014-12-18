@@ -1,9 +1,10 @@
-from django.shortcuts import render,render_to_response, RequestContext, get_object_or_404
+from django.contrib import auth
 from django.http import HttpResponse
 from mainapp.models import Story,Comment,Watch
 import os
 
 scores = {}
+from django.shortcuts import render,render_to_response, RequestContext, get_object_or_404,redirect
 
 # Create your views here.
 def index(request):
@@ -44,5 +45,24 @@ def senti(request):
 		s.senti = avg
 		s.save()
 
-
 	return HttpResponse("dd")
+
+def login(request):
+    if(request.method=='GET'):
+        return render(request, 'mainapp/login.html')
+    else:
+        username=request.POST['username']
+        password=request.POST['password']
+        user=auth.authenticate(username=username,password=password)
+        if user is not None:
+            if(user):
+                auth.login(request,user)
+                return redirect('index')
+            else:
+                return render(request,'mainapp/login.html',{'message':'Cook not found'})
+        else:
+            return render(request,'mainapp/login.html',{'message':'Invalid login'})
+
+def logout(request):
+    auth.logout(request)
+    return redirect('index')
