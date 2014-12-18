@@ -59,6 +59,12 @@
 		 	
 	 	</div><! --/row -->
 	 </div><! --/container -->
+
+<b>Comments</b>
+		    {% for c in comments %}
+		    	<p>&nbsp&nbsp&nbsp&nbsp{{ c.description }}
+		    	</p>
+	        {% endfor %}
 	 
 	 
 {% endblock %}

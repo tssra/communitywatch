@@ -14,6 +14,7 @@ def index(request):
 
 def show_story(request,storyid):
     s = get_object_or_404(Story, pk=storyid)
+    comments = Comment.objects.filter(story = s)
     title = 'Community Watch | ' + s.title
     return render_to_response("mainapp/story.html", locals(), context_instance=RequestContext(request))
 

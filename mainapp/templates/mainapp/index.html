@@ -57,7 +57,7 @@
 		        	{% endif %}
 				    position: new google.maps.LatLng({{s.latitude}},{{s.longitude}}),
 				    map: map,
-				    title:"Hello World!"
+				    title:"{{s.title}}"
 				});
 
 				marker{{for_loop.counter}}.setMap(map);
