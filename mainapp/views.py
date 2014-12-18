@@ -1,12 +1,17 @@
-from django.shortcuts import render
+from django.shortcuts import render,render_to_response, RequestContext, get_object_or_404
 from django.http import HttpResponse
+from mainapp.models import Story,Comment,Watch
 
 # Create your views here.
 def index(request):
-	return render(request,'mainapp/index.html',)
+	title = 'Community Watch'
+	stories = Story.objects.all()
+	return render_to_response("mainapp/index.html", locals(), context_instance=RequestContext(request))
 
-def show_story(request):
-	return render(request,'mainapp/story.html',)
+def show_story(request,storyid):
+    s = get_object_or_404(Story, pk=storyid)
+    title = 'Community Watch | ' + s.title
+    return render_to_response("mainapp/story.html", locals(), context_instance=RequestContext(request))
 
 def calcScore(text):
 	tot = 0
