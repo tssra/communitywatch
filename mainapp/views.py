@@ -1,6 +1,9 @@
 from django.contrib import auth
 from django.http import HttpResponse
 from mainapp.models import Story,Comment,Watch
+import os
+
+scores = {}
 from django.shortcuts import render,render_to_response, RequestContext, get_object_or_404,redirect
 
 # Create your views here.
@@ -31,9 +34,18 @@ def senti(request):
 		term, score  = line.split("\t")  # The file is tab-delimited. "\t" means "tab character"
 		scores[term] = int(score)  # Convert the score to an integer.
 
-	senti = calcScore("I am disappointed")
+	stories = Story.objects.all()
 
-	return HttpResponse(senti)
+	for s in stories:
+		comments = Comment.objects.filter(story = s)
+		tot = 0
+		for c in comments:
+			tot = tot + calcScore(c.description)
+		avg = tot/comments.count()
+		s.senti = avg
+		s.save()
+
+	return HttpResponse("dd")
 
 def login(request):
     if(request.method=='GET'):
