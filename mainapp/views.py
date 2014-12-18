@@ -7,7 +7,7 @@ from django.shortcuts import render,render_to_response, RequestContext, get_obje
 def index(request):
 	title = 'Community Watch'
 	stories = Story.objects.all()
-	return render_to_response("mainapp/index.html", locals(), context_instance=RequestContext(request))
+	return render(request,"mainapp/index.html",{'stories':stories})
 
 def show_story(request,storyid):
     s = get_object_or_404(Story, pk=storyid)

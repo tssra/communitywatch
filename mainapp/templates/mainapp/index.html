@@ -48,19 +48,20 @@
 	        var map = new google.maps.Map(document.getElementById('map-canvas'),
 	            mapOptions);
 
-	        // Insert it inside a for each loop 
-	    {% for s in stories %}
-	        var marker{{for_loop.counter}} = new google.maps.Marker({
-	        	icon: redimg,
-			    position: new google.maps.LatLng(27.7,85.33333330000005),
-			    map: map,
-			    title:"Hello World!"
-			});
-			marker{{for_loop.counter}}.setMap(map);
+		    {% for s in stories %}
+		        var marker{{for_loop.counter}} = new google.maps.Marker({
+		        	{% if s.senti < 0 %}
+		        		icon: redimg,
+		        	{% else %}
+		        		icon: greenimg,
+		        	{% endif %}
+				    position: new google.maps.LatLng({{s.latitude}},{{s.longitude}}),
+				    map: map,
+				    title:"Hello World!"
+				});
+				marker{{for_loop.counter}}.setMap(map);
 
-        {% endfor %}
-
-			//Upto here
+	        {% endfor %}
 
 	      }
 	      google.maps.event.addDomListener(window, 'load', initialize);
